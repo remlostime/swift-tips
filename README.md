@@ -58,6 +58,13 @@ let toIndex = first.index(first.startIndex, offsetBy: i - 1)
 first[first.startIndex...toIndex]
 ```
 
+### Reverse String
+
+```swift
+let s = "abc"
+String(s.characters.reversed())
+```
+
 ### Array
 ```swift
 // Allocate Space
