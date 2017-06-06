@@ -5,6 +5,15 @@
 
 ## Code
 
+### Loop
+
+```swift
+// print 0 2 4
+for i in stride(from: 0, to: 5, by: 2) {
+    print(i)
+}
+```
+
 ### Character
 
 ```swift
