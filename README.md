@@ -5,6 +5,29 @@
 
 ## Code
 
+### UI Performace
+
+```swift
+// App Delegate DidFinishLaunching
+let link = CADisplayLink(target: self, selector: #selector(AppDelegate.update(link:)))
+link.add(to: RunLoop.main, forMode: .commonModes)
+
+func update(link: CADisplayLink) {
+    if lastTime == 0.0 {
+        lastTime = link.timestamp
+    }
+    
+    let currentTime = link.timestamp
+    let elapsedTime = floor((currentTime - lastTime) * 10_000) / 10
+    
+    if elapsedTime > 16.7 {
+        print("Frame was dropped with elapsed time of \(elapsedTime) at \(currentTime)")
+    }
+    
+    lastTime = link.timestamp
+}
+```
+
 ### Loop
 
 ```swift
