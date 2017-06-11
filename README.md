@@ -115,4 +115,19 @@ a = a.sorted { (lhs: aStruct, rhs: aStruct) -> Bool in
 }
 ```
 
+### UIImage Corner Radius
+
+```swift
+func roundImage(_ orig: UIImage, radius: CGFloat, size: CGSize) -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(size, false, 0);
+    let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    UIBezierPath(roundedRect: rect, cornerRadius: radius).addClip()
+    orig.draw(in: rect)
+    let result = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext();
+    
+    return result;
+}
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
