@@ -130,4 +130,47 @@ func roundImage(_ orig: UIImage, radius: CGFloat, size: CGSize) -> UIImage? {
 }
 ```
 
+### Tuples
+
+```swift
+let tup: (Int, Int)
+
+if let (a, _) = tup {
+	print(a)
+}
+```
+
+### Protocol programming
+
+```swift
+enum Category {
+	case a
+	case b
+}
+
+class CategoryDataSource {
+	init(_ category: Category) {
+
+	}
+
+	// base on category do something
+}
+
+// This is better. Protocol programming
+
+protocol CategoryDataSource {
+	func a()
+	func b()
+	...
+}
+
+class ACategoryDataSource: CategoryDataSource {
+
+}
+
+class BCategoryDataSource: CategoryDataSource {
+	
+}
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
