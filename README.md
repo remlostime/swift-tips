@@ -175,7 +175,7 @@ class BCategoryDataSource: CategoryDataSource {
 
 ### Enum
 
-```
+```swift
 // Original
 enum AssetType {
   case photo
