@@ -173,4 +173,48 @@ class BCategoryDataSource: CategoryDataSource {
 }
 ```
 
+### Enum
+
+```
+// Original
+enum AssetType {
+  case photo
+  case camera
+}
+
+protocol ImagePickerAsset {
+  var assetType: AssetType { get }
+}
+
+class CameraAsset: ImagePickerAsset {
+  var assetType: AssetType {
+    return .camera
+  }
+
+  let image: UIImage
+
+  init(_ image: UIImage) {
+    self.image = image
+  }
+}
+
+class PhotoAsset: ImagePickerAsset {
+  var assetType: AssetType {
+    return .photo
+  }
+
+  let phAsset: PHAsset
+
+  init(_ phAsset: PHAsset) {
+    self.phAsset = phAsset
+  }
+}
+
+// Change to
+  enum ImagePickerCellType {
+    case image(PHAsset)
+    case cameraButton(UIImage)
+  }
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
