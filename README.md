@@ -44,6 +44,8 @@ let startingValue = Int(("A" as UnicodeScalar).value) // 65
 for i in 0 ..< 26 {
     print(Character(UnicodeScalar(i + startingValue)!))
 }
+
+let c = Character(UnicodeScalar(UnicodeScalar("a").value + 1) ?? UnicodeScalar(0)) // b
 ```
 
 ### Sort String
