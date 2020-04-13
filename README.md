@@ -95,6 +95,9 @@ String(s.characters.reversed())
 // Allocate Space
 var left: [Int] = Array(repeating: 0, count: nums.count)
 
+// 2D array
+var arr = Array(repeating: Array(repeating: 0, count: 2), count: 3)
+
 // Reverse Order Visit
 for i in (0...10).reversed()
 
