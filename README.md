@@ -225,15 +225,15 @@ class PhotoAsset: ImagePickerAsset {
 ### Hash
 
 ```swift
-class MyClass: Hashable { }
-
-func ==(lhs: MyClass, rhs: MyClass) -> Bool {
-    return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+extension ListNode: Hashable {
+    public var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }    
 }
 
-class MyClass: Hashable {
-    var hashValue: Int {
-        return ObjectIdentifier(self).hashValue
+extension ListNode: Equatable {
+    public static func == (lhs: ListNode, rhs: ListNode) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }
 ```
