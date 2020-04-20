@@ -222,4 +222,20 @@ class PhotoAsset: ImagePickerAsset {
   }
 ```
 
+### Hash
+
+```swift
+class MyClass: Hashable { }
+
+func ==(lhs: MyClass, rhs: MyClass) -> Bool {
+    return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+}
+
+class MyClass: Hashable {
+    var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+}
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
