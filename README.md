@@ -5,6 +5,50 @@
 
 ## Code
 
+### Codeable
+```swift
+
+let json = """
+[
+    {
+        "name": {
+            "first_name": "Taylor",
+            "last_name": "Swift"
+        },
+        "zip_code": "94538",
+	"street": "xxx",
+    }
+]
+"""
+
+struct Address : Codable {
+    var street: String
+    var zip: String
+    var firstName: String
+    var lastName: String
+
+    private enum CodingKeys : String, CodingKey {
+        case street, zip = "zip_code", name
+    }
+    
+    private enum NameCodingKeys: String, CodingKey {
+    	case firstName, lastName
+    }
+    
+    init(from decoder: Decoder) throws {
+    	var container = decoder.container(keyedBy: CodingKeys.self)
+	try container.decoder(street, forKey: .street)
+	try container.decoder(zip, forKey: .zip)
+
+        var name = container.nestedContainer(keyedBy: NameCodingKeys.self, forKey: .name)
+        try name.encode(firstName, forKey: .firstName)
+        try name.encode(lastName, forKey: .lastName)
+    }
+}
+
+
+```
+
 ### UI Performace
 
 ```swift
