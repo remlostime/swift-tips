@@ -5,6 +5,37 @@
 
 ## Code
 
+### Enum
+```swift
+public protocol CurrencyType {
+    /// The three letter ISO 4217 currency code.
+    static var code: String { get }
+
+    /// The name of the currency.
+    static var name: String { get }
+
+    static var minorUnit: Int { get }
+}
+
+/// UAE Dirham (AED)
+public enum AED: CurrencyType {
+    public static var code: String {
+        return "AED"
+    }
+
+    public static var name: String {
+        return "UAE Dirham"
+    }
+
+    public static var minorUnit: Int {
+        return 2
+    }
+}
+
+let currencyType: CurrencyType.Type = AED.self
+print(currencyType.code)
+```
+
 ### Codeable
 ```swift
 
