@@ -115,6 +115,21 @@ for i in stride(from: 0, to: 5, by: 2) {
 ### Character
 
 ```swift
+// Get char value
+// Prints:
+// 4 --> Optional(4)
+// ④ --> Optional(4)
+// 万 --> Optional(10000)
+// a --> nil
+c.wholeNumberValue
+
+// Prints:
+// 1 --> Optional(1)
+// a --> Optional(10)
+// Ｆ --> Optional(15)
+// g --> nil
+c.hexDigitValue
+
 let startingValue = Int(("A" as UnicodeScalar).value) // 65
 for i in 0 ..< 26 {
     print(Character(UnicodeScalar(i + startingValue)!))
