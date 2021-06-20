@@ -328,4 +328,24 @@ extension ListNode: Equatable {
 }
 ```
 
+### Function Programming
+```swift
+var greeting = "Hello,****playground***dsafsdf"
+
+let a = greeting.map { c -> String in
+  if c.isLetter {
+    return "1"
+  }
+
+  return String(c)
+}.joined()
+
+print(a) // 11111,****1111111111***1111111
+
+let b = a.split(separator: "*")
+
+print(b) // ["11111,", "1111111111", "1111111"]
+print(type(of: b)) // Array<Substring>
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
