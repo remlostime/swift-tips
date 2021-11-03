@@ -348,4 +348,83 @@ print(b) // ["11111,", "1111111111", "1111111"]
 print(type(of: b)) // Array<Substring>
 ```
 
+### List
+```swift
+class Node {
+  var next: Node?
+  var pre: Node?
+  var val: Int
+  
+  init(next: Node? = nil, pre: Node? = nil, val: Int) {
+    self.next = next
+    self.pre = pre
+    self.val = val
+  }
+}
+
+class List {
+  private var head: Node? = nil
+  private var tail: Node? = nil
+  
+  private var val2Node: [Int: Node] = [:]
+  
+  func printList() {
+    var node = head
+    while let _node = node {
+      print(_node.val, terminator: ",")
+      node = node?.next
+    }
+    
+    print("End")
+  }
+  
+  func append(val: Int) {
+    let node = Node(val: val)
+    if head == nil {
+      head = node
+      tail = node
+    } else {
+      tail?.next = node
+      node.pre = tail
+      tail = node
+    }
+    
+    val2Node[val] = node
+  }
+  
+  func insert2Head(val: Int) {
+    let node = Node(val: val)
+    if head == nil {
+      head = node
+      tail = node
+    } else {
+      head?.pre = node
+      node.next = head
+      head = node
+    }
+    
+    val2Node[val] = node
+  }
+  
+  func removeVal(_ val: Int) {
+    guard let node = val2Node[val] else {
+      return
+    }
+    
+    let preNode = node.pre
+    let nextNode = node.next
+    preNode?.next = nextNode
+    nextNode?.pre = preNode
+    
+    if node === head {
+      head = nextNode
+    }
+    
+    if node === tail {
+      tail = preNode
+    }
+  }
+}
+```
+
 [1]:	https://oleb.net/blog/2016/08/swift-3-strings/
