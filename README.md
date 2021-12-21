@@ -5,6 +5,31 @@
 
 ## Code
 
+### Save & Load
+```swift
+// save
+    let data = try! JSONEncoder().encode(self.store.value)
+    let documentsPath = NSSearchPathForDirectoriesInDomains(
+      .documentDirectory, .userDomainMask, true
+      )[0]
+    let documentsUrl = URL(fileURLWithPath: documentsPath)
+    let favoritePrimesUrl = documentsUrl
+      .appendingPathComponent("favorite-primes.json")
+    try! data.write(to: favoritePrimesUrl)
+    
+// load
+  let documentsPath = NSSearchPathForDirectoriesInDomains(
+    .documentDirectory, .userDomainMask, true
+    )[0]
+  let documentsUrl = URL(fileURLWithPath: documentsPath)
+  let favoritePrimesUrl = documentsUrl
+    .appendingPathComponent("favorite-primes.json")
+  guard
+    let data = try? Data(contentsOf: favoritePrimesUrl),
+    let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
+    else { return }
+```
+
 ### Enum
 ```swift
 public protocol CurrencyType {
