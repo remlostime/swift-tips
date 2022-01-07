@@ -5,6 +5,15 @@
 
 ## Code
 
+### Dump data
+```swift
+// code
+print(String(data: data!, encoding: .utf8))
+
+// command
+p String(data: data!, encoding: .utf8)
+```
+
 ### Save & Load
 ```swift
 // save
