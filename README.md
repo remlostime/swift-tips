@@ -7,6 +7,14 @@
 
 ### Dump data
 ```swift
+// code - for class or data struct
+struct A {
+  let a: Int
+}
+
+let a = A()
+dump(a)
+
 // code
 print(String(data: data!, encoding: .utf8))
 
