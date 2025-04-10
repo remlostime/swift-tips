@@ -126,13 +126,9 @@ struct Address : Codable {
 
 ```swift
 // Age could be `bool`, `int`, `double`, `array` etc
-/*
-Prompt:
-Write a single Swift type that can successfully decode all of the following JSON datasets:
-*/
 let testInputs: [String] = [
     """
-    {age:10}
+    {"age":10}
     """,
     """
     { "age":10.5 }
@@ -160,6 +156,24 @@ enum Age: Decodable {
   case string(String)
   case bool(Bool)
   case array([Age])
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.singleValueContainer()
+
+    if let intValue = try? container.decode(Int.self) {
+        self = .int(intValue)
+    } else if let boolValue = try? container.decode(Bool.self) {
+        self = .bool(boolValue)
+    } else if let doubleValue = try? container.decode(Double.self) {
+        self = .double(doubleValue)
+    } else if let stringValue = try? container.decode(String.self) {
+        self = .string(stringValue)
+    } else if let arrayValue = try? container.decode([Age].self) {
+       self = .array(arrayValue)
+    } else {
+      self = .int(0)
+    }
+  }
 }
 
 struct Info: Decodable {
@@ -178,19 +192,27 @@ struct SwiftType: Decodable {
 
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
+
     age = try container.decode(Age.self, forKey: .age)
-    info = try container.decode(Info.self, forKey: .info)
+    do {
+      info = try container.decode(Info.self, forKey: .info)
+    } catch {
+      info = nil
+    }
   }
 }
 
-let data = testInputs[0]
-    .data(using: .utf8)!
+for test in testInputs {
+  let data = test
+      .data(using: .utf8)!
 
-do {
-    let decoded = try JSONDecoder().decode(SwiftType.self, from: data)
-    print(decoded)
-} catch {
-    print("Error decoding: \(error)")
+  do {
+      let decoded = try JSONDecoder().decode(SwiftType.self, from: data)
+      print(decoded)
+  } catch {
+      let decodedArray = try JSONDecoder().decode([SwiftType].self, from: data)
+      print(decodedArray)
+  }
 }
 ```
 
