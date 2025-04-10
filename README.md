@@ -122,6 +122,78 @@ struct Address : Codable {
 
 ```
 
+### Decode
+
+```swift
+// Age could be `bool`, `int`, `double`, `array` etc
+/*
+Prompt:
+Write a single Swift type that can successfully decode all of the following JSON datasets:
+*/
+let testInputs: [String] = [
+    """
+    {age:10}
+    """,
+    """
+    { "age":10.5 }
+    """,
+    """
+    { "age":"Ten" }
+    """,
+    """
+    { "age":false }
+    """,
+    """
+    { "age":[10, 10.5, "Ten"] }
+    """,
+    """
+    [{
+      "info":{"first":"Alex", "nicknames":["Chase"]},
+      "age":[10, 10.5, "Ten"]
+    }]
+    """
+]
+
+enum Age: Decodable {
+  case int(Int)
+  case double(Double)
+  case string(String)
+  case bool(Bool)
+  case array([Age])
+}
+
+struct Info: Decodable {
+  let first: String
+  let nicknames: [String]
+}
+
+struct SwiftType: Decodable {
+  let age: Age
+  let info: Info?
+
+  enum CodingKeys: String, CodingKey {
+    case age
+    case info
+  }
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    age = try container.decode(Age.self, forKey: .age)
+    info = try container.decode(Info.self, forKey: .info)
+  }
+}
+
+let data = testInputs[0]
+    .data(using: .utf8)!
+
+do {
+    let decoded = try JSONDecoder().decode(SwiftType.self, from: data)
+    print(decoded)
+} catch {
+    print("Error decoding: \(error)")
+}
+```
+
 ### UI Performace
 
 ```swift
